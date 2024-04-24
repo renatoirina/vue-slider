@@ -28,48 +28,74 @@
     <!-- Custom style -->
     <link rel="stylesheet" href="css/style.css" />
 
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
     <title>JS Array Carousel with Objects</title>
   </head>
   <body>
-    <main>
-      <div class="container-fluid p-5">
-        <div class="row text-center">
-          <div class="col-12 p-5">
-            <div class="my-carousel-container d-flex flex-column px-5" id="my-carousel">
-              <div class="my-carousel-images">
-                <!-- immagini -->
-                
+    <div id="app">
+      <main>
+        <div class="container-fluid p-5">
+          <div class="row text-center">
+            <div class="col-12 p-3" id="my-before-carousel"></div>
 
-                <!-- etc .... -->
-              </div>
-              <div class="my-thumbnails position-relative">
-                <!-- prev -->
-                <div class="my-previous position-absolute">
-                  <span class="my-prev-hook"></span>
+            <div class="col-12 p-5">
+              <div
+                class="my-carousel-container d-flex flex-column px-5"
+                id="my-carousel"
+              >
+                <div class="my-carousel-images">
+                  <!-- immagine -->
+                  <div class="my-carousel-item active" carousel-item="1">
+                    <img
+                      class="img-fluid"
+                      :src="images[activeIndex].image"
+                      :alt="images[activeIndex].title"
+                    />
+                    <div class="item-description px-3">
+                      <h2>{{images[activeIndex].title}}</h2>
+                      <p>
+                        {{images[activeIndex].text}}
+                      </p>
+                    </div>
+                  </div>
+                  <!-- /immagine -->
                 </div>
-                <!-- next -->
-                <div class="my-next position-absolute">
-                  <span class="my-next-hook"></span>
+                <div class="my-thumbnails position-relative">
+                  <!-- prev -->
+                  <div @click="activeIndex > 0 ? activeIndex-- : activeIndex = images.length -1" class="my-previous position-absolute">
+                    <span class="my-prev-hook"></span>
+                  </div>
+                  <!-- next -->
+                  <div @click="activeIndex === images.length -1 ? activeIndex = 0 : activeIndex ++" class="my-next position-absolute">
+                    <span class="my-next-hook"></span>
+                  </div>
+                  <!-- immagini interne -->
+                  <img
+                    v-for="curObject in images"
+                    class="img-fluid my-thumbnail active"
+                    :src="curObject.image"
+                    :alt="curObject.title"
+                  />
+                  
+                  <!-- etc ... -->
                 </div>
-                <!-- immagini interne -->
-                
-                <!-- etc ... -->
               </div>
             </div>
-          </div>
 
-          <div class="col-12 p-3" id="my-after-carousel">
-            <button id="my-order-button" class="btn btn-primary">
-              Inverti l'ordine di scorrimento
-            </button>
-            <button id="my-stop-button" class="btn btn-primary">
-              Interrompi / Fai ripartire lo scorrimento
-            </button>
+            <div class="col-12 p-3" id="my-after-carousel">
+              <button id="my-order-button" class="btn btn-primary">
+                Inverti l'ordine di scorrimento
+              </button>
+              <button id="my-stop-button" class="btn btn-primary">
+                Interrompi / Fai ripartire lo scorrimento
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
-
-    <script src="./js/main.js"></script>
+      </main>
+    </div>
+    <script src="js/main.js"></script>
   </body>
 </html>
